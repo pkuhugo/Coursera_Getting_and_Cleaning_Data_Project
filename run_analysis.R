@@ -61,6 +61,5 @@ merge_data$activity[as.numeric(merge_data$activity) == 6] <- as.character(activi
 
 #build the second dataset
 merge_melted <- melt(merge_data, id.vars=c("id", "activity"))
-merge_grouped <- group_by(merge_melted, id, activity)
-merge_sum <- summarise(merge_grouped, mean=mean(value))
-write.table(merge_sum, "tidy.txt", row.names = FALSE, quote = FALSE)
+merge_cast <- dcast(merge_melted, id + activity ~ variable, mean)
+write.table(merge_cast, "tidy.txt", row.names = FALSE, quote = FALSE)
